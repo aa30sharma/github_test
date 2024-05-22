@@ -1,0 +1,28 @@
+name: Callable Workflow
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        description: 'Name for greeting'
+        required: true
+        type: 'string'
+    outputs:
+      greetingMessage:
+        description: 'Generated greeting message'
+        value: ${{ jobs.generate-greeting.outputs.greeting_message }}
+
+jobs:
+  generate-greeting:
+    runs-on: ubuntu-latest
+    outputs:
+      greeting_message: ${{ steps.greeting.outputs.message }}
+    steps:
+      - name: Generate Greeting
+        id: greeting
+        run: echo "message=Hello, ${{ inputs.name }}!" >> $GITHUB_ENV
+        env:
+          GITHUB_ENV: ${{ github.env }}
+      - name: Set Greeting Output
+        id: set-output
+        run: echo "::set-output name=message::$(echo "Hello, ${{ inputs.name }}!")"
