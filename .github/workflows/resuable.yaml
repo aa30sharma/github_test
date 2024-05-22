@@ -1,0 +1,14 @@
+name: resuable file
+
+on:
+ workflow_call:
+
+jobs:
+ job1:
+  runs-on: ubuntu-latest
+
+  steps:
+   - name: echo print
+     run: |
+       echo "hello world"
+  
