@@ -6,9 +6,9 @@ on:
 jobs:
  job1:
   runs-on: ubuntu-latest
-
   steps:
-   - name: echo print
-     run: |
+    - uses: actions/checkout@v3    
+    - name: echo print 
+      run: |
        echo "hello world"
   
